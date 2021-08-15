@@ -3,22 +3,41 @@ using System.Text;
 
 namespace arrays
 {
-    // I'm not sure if this is what was meant by "in place".
+    //NxN.
+    //Constatnt space
     static class RotatePhoto90
     {
-        public static int[,] Rotate(int[,] photo){
-            int len1D = photo.GetLength(0); 
-            int len2D = photo.GetLength(1); 
-            int[,] rotatedPhoto = new int[len2D,len1D];
-            for (int i = 0; i < len1D; i++)
+        public static int[,] Transpose(int[,] tab)
+        {
+            int len = tab.GetLength(0);
+            int v = -1;
+            for (int i = 0; i < len; i++)
             {
-                for (int j = 0; j < len2D; j++)
+                for (int j = 0; j < len; j++)
                 {
-                    int pixel = photo[i,j];
-                    rotatedPhoto[j,i] = pixel;
+                    if (i <= v || j <= v || i == 0 && j == 0) { continue; }
+                    int temp = tab[i, j];
+                    tab[i, j] = tab[j, i];
+                    tab[j, i] = temp;
+                }
+                v++;
+            }
+            return tab;
+        }
+        public static int[,] Rotate(int[,] photo)
+        {
+            int len = photo.GetLength(0);
+            photo = Transpose(photo);
+            for (int i = 0; i < len; i++)
+            {
+                for (int j = 0; j < len; j++)
+                {
+                    int temp = photo[i, j];
+                    photo[i, j] = photo[i, len - j - 1];
+                    photo[i, len - j - 1] = temp;
                 }
             }
-            return rotatedPhoto;
+            return photo;
         }
     }
 }
