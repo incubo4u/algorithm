@@ -39,5 +39,24 @@ namespace arrays
             }
             return photo;
         }
+        public static int[,] RotateFast(int[,] photo)
+        {
+            int len = photo.GetLength(0);
+            for (int i = 0; i < len / 2; i++)
+            {
+                int first = i;
+                int last = len - 1 - i;
+                for (int k = first; k < len - i - 1; k++)
+                {
+                    int offset = i - first;
+                    int top = photo[first, i]; // top
+                    photo[first, i] = photo[last - offset, first]; // left to top
+                    photo[last - offset, first] = photo[last, last - offset]; //bottom to left
+                    photo[last, last - offset] = photo[i, last]; // right to bottom
+                    photo[i, last] = top; // top to right
+                }
+            }
+            return photo;
+        }
     }
 }
