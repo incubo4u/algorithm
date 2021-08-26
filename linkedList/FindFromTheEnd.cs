@@ -6,6 +6,7 @@ namespace linkedList
     {
         public static Node FindNode(Node head, int k)
         {
+            if(k<=0){ throw new IndexOutOfRangeException();}
             if (k == 1) { return head; }
             int lenght = 0;
             var node = head;
