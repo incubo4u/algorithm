@@ -22,23 +22,24 @@ namespace linkedList
         public static Node FindCycle(Node head)
         {
             if (head == null || head.next == null) { return null; }
+            if (head.next == head) { return head; }
             Node stepOne = head;
             Node stepTwo = head;
-            int steps = 0;
             while (stepOne != null && stepTwo != null)
             {
-                steps++;
                 stepOne = stepOne.next == null ? null : stepOne.next;
                 stepTwo = stepTwo.next == null ||
                           stepTwo.next.next == null ? null : stepTwo.next.next;
-                if (stepOne == stepTwo) { 
+                if (stepOne == stepTwo)
+                {
+                    if (head.next == stepTwo) { return head; }
                     stepOne = head;
-                    for (int i = 0; i < steps; i++)
+                    while (stepTwo != stepOne)
                     {
                         stepOne = stepOne.next;
                         stepTwo = stepTwo.next;
                     }
-                    if(stepOne == stepTwo){ return stepOne.next; }
+                    return stepOne;
                 }
             }
             return null;
