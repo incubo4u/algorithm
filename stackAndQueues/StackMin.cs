@@ -32,7 +32,7 @@ namespace stackAndQueues
         }
         public void Push(T item)
         {
-            if (minValue.Peek() <= item)
+            if (minValue.Peek() >= item)
             {
                 minValue.Push(item);
             }
@@ -42,7 +42,7 @@ namespace stackAndQueues
         }
         public T Peek()
         {
-            return top.data;
+            return top.data == null ? int.MaxValue: top.data ;
         }
         public T Min()
         {
