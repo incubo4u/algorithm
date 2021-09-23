@@ -24,7 +24,7 @@ namespace stackAndQueues
             return null;
         }
         public void Push(T item){
-            Node node = new Stack.Node(item);
+            Node node = new Node(item);
             node.next = top;
             top = node;
         }
