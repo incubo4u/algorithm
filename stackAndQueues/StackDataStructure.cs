@@ -29,7 +29,7 @@ namespace stackAndQueues
             top = node;
         }
         public T Peek(){
-            return top.data;
+            return top == null ? null :top.data;
         }
     }
 }
