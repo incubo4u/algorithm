@@ -12,7 +12,7 @@ public class Solution
       }
       else { times.Add(letter, 1); }
     }
-     foreach (var letter in t)
+    foreach (var letter in t)
     {
       if (!times.ContainsKey(letter))
       {
