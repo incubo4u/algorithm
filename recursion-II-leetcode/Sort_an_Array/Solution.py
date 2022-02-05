@@ -16,6 +16,7 @@ class Solution:
             else:
                 ret.extend(right)
             return ret
+            
         if len(nums) == 1:
             return nums
         cut = len(nums)//2
