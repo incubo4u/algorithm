@@ -13,5 +13,5 @@ class Solution:
                     comb(i+1)
                 else: 
                     result.append(sub[:])
-        comb(1,0)
+        comb(1)
         return result
