@@ -1,12 +1,9 @@
-from typing import List
-
-
+from typing import List 
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
         result = []
         sub = []
-        n += 1
-
+        n+=1
         def comb(i):
             if i <= n:
                 if len(sub) < k:
@@ -14,5 +11,7 @@ class Solution:
                     comb(i+1)
                     sub.pop()
                     comb(i+1)
-                else:
+                else: 
                     result.append(sub[:])
+        comb(1,0)
+        return result
