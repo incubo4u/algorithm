@@ -23,7 +23,7 @@ class Solution:
 
 
 class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
+    def permuteSwap(self, nums: List[int]) -> List[List[int]]:
         result = []
         lenght = len(nums)
 
