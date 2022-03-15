@@ -20,3 +20,24 @@ class Solution:
                     perm.pop()
         backtrack()
         return result
+
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        lenght = len(nums)
+
+        def swap(x, o):
+            nums[x], nums[o] = nums[o], nums[x]
+
+        def backtrack(j):
+            if j == lenght-1:
+                result.append(nums[:])
+            for i in range(lenght):
+                if j <= i:
+                    swap(j, i)
+                    backtrack(j+1)
+                    swap(j, i)
+
+        backtrack(0)
+        return result
