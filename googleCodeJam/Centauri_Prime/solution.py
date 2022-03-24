@@ -1,4 +1,3 @@
-# TODO: Complete the get_ruler function
 volwes = {'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'}
 
 
