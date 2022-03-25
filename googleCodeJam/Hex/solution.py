@@ -1,53 +1,115 @@
-def game_status(board_size, board):
-    count_colors = {'B': 0, 'R': 0}
-    visited = {}
-    directions = [(-1, 0), (1, 0), (-1, 1), (1, -1), (0, -1), (0, 1)]
-    winner = None
 
+def game_status(board_size, board):
     def count_colors():
+        r, b = 0, 0
         for i in board:
             for j in i:
-                if j != '.':
-                    count_colors[j] += 1
+                if j == 'B':
+                    b += 1
+                if j == 'R':
+                    r += 1
+        return r, b
 
-    def too_many_moves():
-        if winner:
-            return (winner == 'B' and count_colors[0] < count_colors[1]) or (winner == 'R' and count_colors[1] < count_colors[0])
-        return abs(count_colors['R'] - count_colors['B']) > 1
+    def add_padding():
+        nonlocal board, board_size
+        board.append(['R' for i in range(board_size)])
+        board.insert(0, ['R' for i in range(board_size)])
+        for i in range(board_size+2):
+            board[i].append('B')
+            board[i].insert(0, 'B')
 
-    def many_winning_road():
-        pass
+    def get_next_hex(left, right):
+        right_dir = (right[0] - left[0], right[1] - left[1])
+        for index, direction in enumerate(directions):
+            if right_dir == direction:
+                next_dir = directions[(index + 1) % 6]
+                return (left[0] + next_dir[0], left[1] + next_dir[1])
+        raise Exception
 
-    def find_road(i, j):
-        if winner or i not in range(board_size) or j not in range(board_size):
-            return
-        if board[i][j] == '.':
-            return
-        if visited.get((i, j)):
-            return
-        visited[(i, j)] = board[i][j]
-        if (board[i][j] == 'B' and j == board_size - 1) or (board[i][j] == 'R' and i == board_size - 1):
-            winner = board[i][j]
+    def step(colour, left, right):
+        next_hex = get_next_hex(left, right)
+        if board[next_hex[0]][next_hex[1]] == colour:
+            return next_hex, right
         else:
-            for dir in directions:
-                find_road(i+dir[0], j+dir[1])
-        return winner
+            return left, next_hex
 
-    count_colors()
-    if too_many_moves():
+    def find_southwest_red_path():
+        nonlocal board
+        left, right = (board_size - 1, 0), (board_size - 2, 0)
+        path = set()
+        while left[0] > 0:
+            path.add(left)
+            left, right = step('R', left, right)
+            if right[1] == board_size - 1:
+                return None
+        return path
+
+    def find_southeast_red_path():
+        nonlocal board
+        left, right = (board_size - 1, board_size -
+                       1), (board_size - 2, board_size - 1)
+        path = set()
+        while left[0] > 0:
+            path.add(left)
+            left, right = step('R', left, right)
+            if right[1] == 0:
+                return None
+        return path
+
+    def find_nothwest_blue_path():
+        nonlocal board
+        left, right = (0, 0), (0, 1)
+        path = set()
+        while left[1] < board_size - 1:
+            path.add(left)
+            left, right = step('B', left, right)
+            if right[0] == board_size-1:
+                return None
+        return path
+
+    def find_southwest_blue_path():
+        nonlocal board
+        left, right = (board_size - 1, 0), (board_size - 1, 1)
+        path = set()
+        while left[1] < board_size - 1:
+            path.add(left)
+            left, right = step('B', left, right)
+            if right[0] == 0:
+                return None
+        return path
+
+    red_moves, blue_moves = count_colors()
+    if abs(red_moves - blue_moves) > 1:
         return 'Impossible'
 
-    for i, (b, r) in enumerate(zip(board, board[0])):
-        if winner:
-            break
-        if b == 'B':
-            find_road(i, 0)
-        if r == 'R':
-            find_road(0, i)
-    if not winner:
-        return 'Nobody wins'
-    if too_many_moves() or many_winning_road():
-        return "Impossible"
+    add_padding()
+    board_size += 2
+    #not clockwise
+    directions = [(0, 1), (-1, 1), (-1, 0), (0, -1), (1, -1), (1, 0)]
+    southwest_blue_path = find_southwest_blue_path()
+    if southwest_blue_path:
+        # clockwise
+        directions.reverse()
+        nothwest_blue_path = find_nothwest_blue_path()
+        intersection = southwest_blue_path.intersection(nothwest_blue_path)
+        #not clockwise
+        directions.reverse()
+        if intersection and blue_moves >= red_moves:
+            return 'Blue wins'
+        else:
+            return 'Impossible'
+
+    southeast_red_path = find_southeast_red_path()
+    if southeast_red_path:
+        # clockwise
+        directions.reverse()
+        southwest_red_path = find_southwest_red_path()
+        intersection = southeast_red_path.intersection(southwest_red_path)
+        if intersection and red_moves >= blue_moves:
+            return 'Red wins'
+        else:
+            return 'Impossible'
+    return 'Nobody wins'
 
 
 def main():
@@ -57,9 +119,7 @@ def main():
         board = []
         for _ in range(board_size):
             board.append(list(input().strip()))
-
         ans = game_status(board_size, board)
-
         print('Case #{}: {}'.format(test_case, ans))
 
 
