@@ -1,21 +1,20 @@
-
 def game_status(lenght, board):
     def count_colors():
         r, b = 0, 0
         for i in board:
             for j in i:
-                if j == 'B':
+                if j == "B":
                     b += 1
-                if j == 'R':
+                if j == "R":
                     r += 1
         return r, b
 
     def add_padding():
-        board.append(['R' for i in range(lenght)])
-        board.insert(0, ['R' for i in range(lenght)])
-        for i in range(lenght+2):
-            board[i].append('B')
-            board[i].insert(0, 'B')
+        board.append(["R" for i in range(lenght)])
+        board.insert(0, ["R" for i in range(lenght)])
+        for i in range(lenght + 2):
+            board[i].append("B")
+            board[i].insert(0, "B")
 
     def get_next_hex(left, right):
         right_dir = (right[0] - left[0], right[1] - left[1])
@@ -36,7 +35,7 @@ def game_status(lenght, board):
         path = set()
         while left[1] < left_boundary:
             path.add(left)
-            left, right = step('B', left, right)
+            left, right = step("B", left, right)
             if right[0] == right_boundary:
                 return None
         return path
@@ -45,39 +44,39 @@ def game_status(lenght, board):
         path = set()
         while left[0] > left_boundary:
             path.add(left)
-            left, right = step('R', left, right)
+            left, right = step("R", left, right)
             if right[1] == right_boundary:
                 return None
         return path
 
     red_moves, blue_moves = count_colors()
     if abs(red_moves - blue_moves) > 1:
-        return 'Impossible'
+        return "Impossible"
     add_padding()
     lenght += 2
-    directions = [(0, 1), (-1, 1), (-1, 0), (0, -1), (1, -1), (1,  0)]
+    directions = [(0, 1), (-1, 1), (-1, 0), (0, -1), (1, -1), (1, 0)]
     left, right = (lenght - 1, 0), (lenght - 1, 1)
     first_path = blue_path_from_corner(left, right, lenght - 1, 0)
     if first_path:
         directions.reverse()
         left, right = (0, 0), (0, 1)
-        second_path = blue_path_from_corner(left, right, lenght-1, lenght-1)
+        second_path = blue_path_from_corner(left, right, lenght - 1, lenght - 1)
         common = first_path.intersection(second_path)
         directions.reverse()
         if common and blue_moves >= red_moves:
-            return 'Blue wins'
-        return 'Impossible'
+            return "Blue wins"
+        return "Impossible"
     left, right = (lenght - 1, lenght - 1), (lenght - 2, lenght - 1)
     first_path = red_path_from_corner(left, right, 0, 0)
     if first_path:
         directions.reverse()
         left, right = (lenght - 1, 0), (lenght - 2, 0)
-        second_path = red_path_from_corner(left, right, 0, lenght-1)
+        second_path = red_path_from_corner(left, right, 0, lenght - 1)
         common = first_path.intersection(second_path)
         if common and red_moves >= blue_moves:
-            return 'Red wins'
-        return 'Impossible'
-    return 'Nobody wins'
+            return "Red wins"
+        return "Impossible"
+    return "Nobody wins"
 
 
 def main():
@@ -88,8 +87,8 @@ def main():
         for _ in range(lenght):
             board.append(list(input().strip()))
         ans = game_status(lenght, board)
-        print('Case #{}: {}'.format(test_case, ans))
+        print("Case #{}: {}".format(test_case, ans))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
