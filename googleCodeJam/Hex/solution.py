@@ -1,5 +1,5 @@
 
-def game_status(board_size, board):
+def game_status(lenght, board):
     def count_colors():
         r, b = 0, 0
         for i in board:
@@ -11,10 +11,9 @@ def game_status(board_size, board):
         return r, b
 
     def add_padding():
-        nonlocal board, board_size
-        board.append(['R' for i in range(board_size)])
-        board.insert(0, ['R' for i in range(board_size)])
-        for i in range(board_size+2):
+        board.append(['R' for i in range(lenght)])
+        board.insert(0, ['R' for i in range(lenght)])
+        for i in range(lenght+2):
             board[i].append('B')
             board[i].insert(0, 'B')
 
@@ -33,93 +32,62 @@ def game_status(board_size, board):
         else:
             return left, next_hex
 
-    def find_southwest_red_path():
-        nonlocal board
-        left, right = (board_size - 1, 0), (board_size - 2, 0)
+    def blue_path_from_corner(left, right, left_boundary, right_boundary):
         path = set()
-        while left[0] > 0:
-            path.add(left)
-            left, right = step('R', left, right)
-            if right[1] == board_size - 1:
-                return None
-        return path
-
-    def find_southeast_red_path():
-        nonlocal board
-        left, right = (board_size - 1, board_size -
-                       1), (board_size - 2, board_size - 1)
-        path = set()
-        while left[0] > 0:
-            path.add(left)
-            left, right = step('R', left, right)
-            if right[1] == 0:
-                return None
-        return path
-
-    def find_nothwest_blue_path():
-        nonlocal board
-        left, right = (0, 0), (0, 1)
-        path = set()
-        while left[1] < board_size - 1:
+        while left[1] < left_boundary:
             path.add(left)
             left, right = step('B', left, right)
-            if right[0] == board_size-1:
+            if right[0] == right_boundary:
                 return None
         return path
 
-    def find_southwest_blue_path():
-        nonlocal board
-        left, right = (board_size - 1, 0), (board_size - 1, 1)
+    def red_path_from_corner(left, right, left_boundary, right_boundary):
         path = set()
-        while left[1] < board_size - 1:
+        while left[0] > left_boundary:
             path.add(left)
-            left, right = step('B', left, right)
-            if right[0] == 0:
+            left, right = step('R', left, right)
+            if right[1] == right_boundary:
                 return None
         return path
 
     red_moves, blue_moves = count_colors()
     if abs(red_moves - blue_moves) > 1:
         return 'Impossible'
-
     add_padding()
-    board_size += 2
-    #not clockwise
-    directions = [(0, 1), (-1, 1), (-1, 0), (0, -1), (1, -1), (1, 0)]
-    southwest_blue_path = find_southwest_blue_path()
-    if southwest_blue_path:
-        # clockwise
+    lenght += 2
+    directions = [(0, 1), (-1, 1), (-1, 0), (0, -1), (1, -1), (1,  0)]
+    left, right = (lenght - 1, 0), (lenght - 1, 1)
+    first_path = blue_path_from_corner(left, right, lenght - 1, 0)
+    if first_path:
         directions.reverse()
-        nothwest_blue_path = find_nothwest_blue_path()
-        intersection = southwest_blue_path.intersection(nothwest_blue_path)
-        #not clockwise
+        left, right = (0, 0), (0, 1)
+        second_path = blue_path_from_corner(left, right, lenght-1, lenght-1)
+        common = first_path.intersection(second_path)
         directions.reverse()
-        if intersection and blue_moves >= red_moves:
+        if common and blue_moves >= red_moves:
             return 'Blue wins'
-        else:
-            return 'Impossible'
-
-    southeast_red_path = find_southeast_red_path()
-    if southeast_red_path:
-        # clockwise
+        return 'Impossible'
+    left, right = (lenght - 1, lenght - 1), (lenght - 2, lenght - 1)
+    first_path = red_path_from_corner(left, right, 0, 0)
+    if first_path:
         directions.reverse()
-        southwest_red_path = find_southwest_red_path()
-        intersection = southeast_red_path.intersection(southwest_red_path)
-        if intersection and red_moves >= blue_moves:
+        left, right = (lenght - 1, 0), (lenght - 2, 0)
+        second_path = red_path_from_corner(left, right, 0, lenght-1)
+        common = first_path.intersection(second_path)
+        if common and red_moves >= blue_moves:
             return 'Red wins'
-        else:
-            return 'Impossible'
+        return 'Impossible'
     return 'Nobody wins'
 
 
 def main():
     test_cases = int(input())
     for test_case in range(1, test_cases + 1, 1):
-        board_size = int(input())
+        lenght = int(input())
         board = []
-        for _ in range(board_size):
+        for _ in range(lenght):
             board.append(list(input().strip()))
-        ans = game_status(board_size, board)
+        ans = game_status(lenght, board)
         print('Case #{}: {}'.format(test_case, ans))
 
 
