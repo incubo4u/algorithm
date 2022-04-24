@@ -22,6 +22,3 @@ class Solution:
         else:
             return left - 1
 
-
-s = Solution()
-print(s.guessNumber(3))
