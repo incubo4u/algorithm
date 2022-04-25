@@ -23,4 +23,4 @@ class Solution:
             return left
 
         # return bin_search_rec(0, len(nums) - 1)
-        return bin_search()
+        # return bin_search()
