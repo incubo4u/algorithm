@@ -6,34 +6,27 @@ class Solution:
         def find_left(nums, target) -> int:
             left, right = 0, len(nums) - 1
             while left <= right:
-                if left == right and nums[left] == target:
-                    return left
                 mid = (left + right) // 2
-                if nums[mid] < target:
-                    left = mid + 1
-                elif nums[mid] == target:
-                    right = mid
-                else:
+                if target <= nums[mid]:
                     right = mid - 1
+                else:
+                    left = mid + 1
+            if nums[left] == target:
+                return left
             return -1
 
         def find_right(nums, target) -> int:
             left, right = 0, len(nums) - 1
             while left <= right:
-                if left == right or left + 1 == right:
-                    if nums[right] == target:
-                        return right
-                    if nums[left] == target:
-                        return left
                 mid = (left + right) // 2
-                if nums[mid] < target:
+                if target >= nums[mid]:
                     left = mid + 1
-                elif nums[mid] == target:
-                    left = mid
                 else:
                     right = mid - 1
+            if nums[right] == target:
+                return right
             return -1
 
-        if len(nums) == 0:
+        if len(nums) == 0 or target > nums[len(nums) - 1]:
             return [-1, -1]
         return [find_left(nums, target), find_right(nums, target)]
