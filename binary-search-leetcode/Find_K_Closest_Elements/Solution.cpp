@@ -17,6 +17,5 @@ vector<int> findClosestElements(vector<int> &arr, int k, int x)
             right = mid;
         }
     }
-    vector<int> result{arr.begin() + left, arr.begin() + left + k};
-    return result;
+    return {arr.begin() + left, arr.begin() + left + k};;
 }
