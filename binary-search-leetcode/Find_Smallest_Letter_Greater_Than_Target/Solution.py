@@ -10,11 +10,3 @@ class Solution:
             else:
                 right = mid
         return letters[left % len(letters)]
-                
-
-                
-
-
-s = Solution()
-print(s.nextGreatestLetter(["e","e","n"]
-,"n"))
