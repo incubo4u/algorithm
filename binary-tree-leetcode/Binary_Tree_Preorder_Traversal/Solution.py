@@ -10,9 +10,9 @@ class TreeNode:
 
 class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        result = []
-
-        def traverse(root):
-            result.append(root)
-            traverse(root.left)
-            traverse(root.right)
+        if not root:
+            return []
+        resultRoot = [root]
+        resultLeft = self.preorderTraversal(root.left)
+        resultRight = self.preorderTraversal(root.right)
+        return resultRoot + resultLeft + resultRight
