@@ -16,6 +16,7 @@ class Solution:
                     cut -= 1
                     currentSum = elm
                 largestSum = max(currentSum, largestSum)
+            # True or False  could be returned instead
             if cut > 0:
                 return largestSum
             elif cut == 0:
@@ -34,7 +35,3 @@ class Solution:
             else:
                 left = mid + 1
         return left
-
-
-s = Solution()
-print(s.splitArray([7, 2, 5, 10, 8], m=2))
