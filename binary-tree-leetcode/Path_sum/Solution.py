@@ -14,8 +14,8 @@ class Solution:
             if not root:
                 return False
             score += root.val
-            if score == targetSum and not root.left and not root.right:
-                return True
+            if not root.left and not root.right:
+                return score == targetSum
             return search(root.left, score) or search(root.right, score)
 
         return search(root, 0)
