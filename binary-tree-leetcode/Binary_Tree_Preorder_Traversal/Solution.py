@@ -12,7 +12,7 @@ class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if not root:
             return []
-        resultRoot = [root]
+        resultRoot = [root.val]
         resultLeft = self.preorderTraversal(root.left)
         resultRight = self.preorderTraversal(root.right)
         return resultRoot + resultLeft + resultRight
