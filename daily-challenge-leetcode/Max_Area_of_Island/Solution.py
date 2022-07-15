@@ -11,7 +11,7 @@ class Solution:
                 x, y = i + d[0], j + d[1]
                 if x not in range(len(grid)) or y not in range(len(grid[x])):
                     continue
-                if grid[x][y] != -1 and grid[x][y] != 0:
+                if grid[x][y] > 0:
                     islandArea += 1
                     grid[x][y] = -1
                     islandArea = maxArea(x, y, islandArea)
@@ -19,7 +19,7 @@ class Solution:
 
         for i in range(len(grid)):
             for j in range(len(grid[i])):
-                if grid[i][j] != 0 and grid[i][j] != -1:
+                if grid[i][j] > 0:
                     grid[i][j] = -1
                     area = max(maxArea(i, j, 1), area)
         return area
