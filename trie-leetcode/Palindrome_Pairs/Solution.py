@@ -17,12 +17,12 @@ class Trie:
         node = self
         candidate = set()
         for i, c in enumerate(word):
-            candidate = candidate.union(node["indexes"])
+            candidate = candidate.union(node.childs["indexes"])
             if c in node.childs:
                 node = node.childs[c]
             else:
                 break
-        return candidate.union(node["indexes"])
+        return candidate.union(node.childs["indexes"])
 
 
 class Solution:
