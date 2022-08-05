@@ -13,7 +13,3 @@ class Solution:
                     start = seen[char] + 1
             seen[char] = end
         return result
-
-
-s = Solution()
-print(s.lengthOfLongestSubstring("dvdf"))
