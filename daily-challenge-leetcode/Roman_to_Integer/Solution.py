@@ -9,6 +9,6 @@ class Solution:
                 nr -= integer
                 temp = integer
             else:
-                temp = translate[s[i]]
+                temp = integer
                 nr += temp
         return nr
