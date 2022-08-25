@@ -14,14 +14,13 @@ class Solution:
                 bricks -= missing
                 heapq.heappush(maxheap, -missing)
             elif ladders > 0:
-                lastBiggestMissing = -maxheap[0]
                 if (
                     maxheap
-                    and bricks + lastBiggestMissing >= missing
-                    and lastBiggestMissing >= missing
+                    and bricks + (-maxheap[0]) >= missing
+                    and (-maxheap[0]) >= missing
                 ):
                     ladders -= 1
-                    bricks = lastBiggestMissing + bricks - missing
+                    bricks = -maxheap[0] + bricks - missing
                     heapq.heappop(maxheap)
                     heapq.heappush(maxheap, -missing)
                 else:
