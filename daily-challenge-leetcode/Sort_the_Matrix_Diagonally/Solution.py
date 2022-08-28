@@ -5,7 +5,6 @@ from typing import List
 class Solution:
     def diagonalSort(self, mat: List[List[int]]) -> List[List[int]]:
         h, w = len(mat), len(mat[0])
-        diagonals = h + w - 1
 
         def getDiagonal(i, j):
             diagonal = []
