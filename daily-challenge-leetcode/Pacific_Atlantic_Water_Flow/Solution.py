@@ -4,36 +4,32 @@ from typing import List
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
 
+        m = len(heights)
+        n = len(heights[0])
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        pacific = set()
+        atlantic = set()
         result = []
 
-        def dfs(y, x, bound, seen):
-            nonlocal atlantic, pacific
+        def dfs(y, x, seen, bound=-float("inf")):
             if (
-                y > len(heights) - 1
-                or x > len(heights[y]) - 1
-                or y < 0
+                (y, x) in seen
+                or x > n - 1
+                or y > m - 1
                 or x < 0
-                or (y, x) in seen
-                or bound < heights[y][x]
+                or y < 0
+                or heights[y][x] < bound
             ):
                 return
-
             seen.add((y, x))
-            if y == len(heights) - 1 or x == len(heights[y]) - 1:
-                atlantic = True
-            if y == 0 or x == 0:
-                pacific = True
-
             for d in directions:
-                if atlantic and pacific:
-                    return
-                dfs(y + d[1], x + d[0], heights[y][x], seen)
+                dfs(y + d[1], x + d[0], seen, heights[y][x])
 
-        for y in range(len(heights)):
-            for x in range(len(heights[y])):
-                atlantic, pacific = False, False
-                dfs(y, x, float("inf"), set())
-                if atlantic and pacific:
-                    result.append((y, x))
-        return result
+        for y in range(m):
+            dfs(y, 0, pacific)
+            dfs(y, n - 1, atlantic)
+        for x in range(n):
+            dfs(0, x, pacific)
+            dfs(m - 1, x, atlantic)
+
+        return pacific & atlantic
