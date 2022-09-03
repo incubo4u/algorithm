@@ -28,6 +28,7 @@ class UnionFind:
 
 class Solution:
     def earliestAcq(self, logs: List[List[int]], n: int) -> int:
+        if n-1 > len(logs): return -1
         u = UnionFind(n)
         logs.sort()
         for i, (time, a, b) in enumerate(logs):
