@@ -27,6 +27,6 @@ class UnionFind:
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         u = UnionFind(n)
-        for _, (x, y) in enumerate(edges):
-            u.union(x, y)
-        return len(set(map(u.find, u.nodes)))
+        for _ , (x,y) in enumerate(edges):
+            n -= u.union(x,y)
+        return len(set(map(u.find,u.nodes)))
