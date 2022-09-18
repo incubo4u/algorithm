@@ -24,4 +24,19 @@ class Solution:
         get_water(H_one)
         get_water(H_two)
 
-        return result
+        return 
+##two pointer
+# class Solution:
+#     def trap(self, H: List[int]) -> int:
+#         l,r=0,len(H)-1
+#         water,lmax,rmax = 0,H[l],H[r]
+#         while l < r:
+#             if lmax < rmax:
+#                 l+=1
+#                 lmax = max(lmax,H[l])
+#                 water += lmax - H[l]
+#             else: 
+#                 r-=1
+#                 rmax = max(rmax,H[r])
+#                 water += rmax - H[r]
+#         return water
