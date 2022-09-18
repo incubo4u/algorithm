@@ -4,8 +4,8 @@ from typing import List
 class Solution:
     def trap(self, H: List[int]) -> int:
         divide = H.index(max(H))
-        HOne = H[: divide + 1]
-        HTwo = H[divide:][::-1]
+        H_one = H[: divide + 1]
+        H_two = H[divide:][::-1]
         result = 0
 
         def get_water(H):
@@ -21,7 +21,7 @@ class Solution:
                 result += sum(map(lambda h: last_h - h, H[last_index + 1 : i]))
                 last_h, last_index = curr_h, i
 
-        get_water(HOne)
-        get_water(HTwo)
+        get_water(H_one)
+        get_water(H_two)
 
         return result
