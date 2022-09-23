@@ -1,3 +1,4 @@
+from heapq import heappush, heappop
 from typing import List
 
 
@@ -37,10 +38,10 @@ class Solution:
             for j, (xx, yy) in enumerate(points):
                 if i == j:
                     continue
-                edges.append((abs(x - xx) + abs(y - yy), i, j))
-        edges.sort(key=lambda edge: edge[0])
+                heappush(edges, (abs(x - xx) + abs(y - yy), i, j))
         cost = 0
-        for j, (w, a, b) in enumerate(edges):
+        for _ in range(len(edges)):
+            w, a, b = heappop(edges)
             if n == 1:
                 break
             if union_find.connected(a, b):
