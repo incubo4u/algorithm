@@ -23,3 +23,17 @@ class Solution:
             return search(root.left) or search(root.right)
 
         return search(root)
+
+    # def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
+    #     need = set()
+    #     stack = [root]
+    #     while stack:
+    #         root = stack.pop()
+    #         if not root:
+    #             continue
+    #         if k - root.val in need:
+    #             return True
+    #         need.add(root.val)
+    #         stack.append(root.left)
+    #         stack.append(root.right)
+    #     return False
