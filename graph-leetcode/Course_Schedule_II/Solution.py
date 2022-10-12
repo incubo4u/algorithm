@@ -7,15 +7,12 @@ class Solution:
         if not prerequisites:
             return list(range(N))
         prereqs_course, prereqs_amount = defaultdict(list), defaultdict(int)
-        courses, prereqs = set(), set()
         for _, (c, pr) in enumerate(prerequisites):
             prereqs_amount[c] += 1
             prereqs_course[pr].append(c)
-            prereqs.add(pr)
-            courses.add(c)
-        ans = list(set(range(N)) - (courses | prereqs))
+        ans = []
         que = deque()
-        que.extend(prereqs - courses)
+        que.extend(set(range(N)) - set(prereqs_amount))
         while que:
             pr = que.popleft()
             ans.append(pr)
