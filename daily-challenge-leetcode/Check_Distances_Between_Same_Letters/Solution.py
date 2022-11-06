@@ -11,3 +11,4 @@ class Solution:
             elif (i - seen[c]) - 1 != distance[ord(c) - 97]:
                 return False
         return True
+
