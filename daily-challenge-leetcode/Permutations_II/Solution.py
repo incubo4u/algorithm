@@ -3,10 +3,10 @@ from typing import Counter, List
 
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        d = Counter(nums)
+        choice = Counter(nums)
         res = []
 
-        def backtrack(perm, choice):
+        def backtrack(perm):
             if len(perm) == len(nums):
                 res.append(perm)
                 return
@@ -14,8 +14,8 @@ class Solution:
                 if not choice[key]:
                     continue
                 choice[key] -= 1
-                backtrack(perm + [key], choice.copy())
+                backtrack(perm + [key])
                 choice[key] += 1
 
-        backtrack([], d)
+        backtrack([])
         return res
