@@ -8,4 +8,4 @@ class Solution:
                     mat[i][j] = 1 + mat[i + 1][j + 1]
                 else:
                     mat[i][j] = max(mat[i + 1][j], mat[i][j + 1])
-        return mat[0][0]
+        return mat[0][0] 
