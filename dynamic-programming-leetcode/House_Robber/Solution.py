@@ -10,4 +10,4 @@ class Solution:
         memo[1] = max(nums[1], nums[0])
         for i in range(2, len(nums)):
             memo[i] = max(memo[i - 1], memo[i - 2] + nums[i])
-        return memo[-1]
+        return memo[-1] 
