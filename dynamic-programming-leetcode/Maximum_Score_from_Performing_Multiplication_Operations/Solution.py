@@ -15,4 +15,4 @@ class Solution:
                 nums[n - 1 - (i - left)] * multipliers[i] + get_max(i + 1, left),
             )
 
-        return get_max(0, 0)
+        return get_max(0, 0) 
