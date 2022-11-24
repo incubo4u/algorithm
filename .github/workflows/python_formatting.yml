@@ -1,5 +1,5 @@
 name: Formatting python code
-n:
+on:
   push:
     paths:
       - "**.py"
