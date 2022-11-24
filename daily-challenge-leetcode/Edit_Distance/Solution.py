@@ -2,18 +2,18 @@ from functools import cache
 
 
 class Solution:
-    def minDistance(self, w: str, ww: str) -> int:
-        l_one, l_two = len(w), len(ww)
+    def minDistance(self, word_one: str, word_two: str) -> int:
+        l_one, l_two = len(word_one), len(word_two)
 
         @cache
         def edit(o, t, cost):
             if o > l_one - 1 and t < l_two:
-                return cost + len(ww) - t
+                return cost + l_two - t
             elif t > l_two - 1 and o < l_one:
-                return cost + len(w) - o
+                return cost + l_one - o
             elif o > l_one - 1 and t > l_two - 1:
                 return cost
-            elif w[o] == ww[t]:
+            elif word_one[o] == word_two[t]:
                 return edit(o + 1, t + 1, cost)
             else:
                 return min(
