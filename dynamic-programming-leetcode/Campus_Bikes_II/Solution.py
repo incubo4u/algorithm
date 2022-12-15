@@ -17,7 +17,8 @@ class Solution:
             for b in range(B):
                 if seen & (1 << b):
                     continue
-                best = min(get_min(w + 1, seen | (1 << b)) + distance(w, b), best)
+                best = min(
+                    get_min(w + 1, seen | (1 << b)) + distance(w, b), best)
             return best
 
         return get_min(0, 0)
