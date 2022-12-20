@@ -4,9 +4,7 @@ from typing import List
 class Solution:
 
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
-        g = {}
-        for v, keys in enumerate(rooms):
-            g[v] = keys
+        g = {v: keys for v, keys in enumerate(rooms)}
         seen = set()
 
         def dfs(v):
