@@ -15,7 +15,8 @@ class UnionFind:
     def find(self, x):
         if self.chars[x] == x:
             return x
-        return self.find(self.chars[x])
+        self.chars[x] =  self.find(self.chars[x])
+        return self.chars[x]
 
 
 class Solution:
