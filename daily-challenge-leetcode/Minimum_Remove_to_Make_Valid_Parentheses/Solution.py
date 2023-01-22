@@ -3,7 +3,7 @@ from string import ascii_lowercase
 
 class Solution:
 
-    def minRemoveToMakeValid(self, s: str) -> str:
+    def minRemoveToMakeValid(self, s: str):
         stack = []
         rm = set()
         for i, c in enumerate(s):
