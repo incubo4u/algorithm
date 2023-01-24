@@ -1,3 +1,6 @@
+from collections import deque
+
+
 class Solution:
 
     def snakesAndLadders(self, board):
