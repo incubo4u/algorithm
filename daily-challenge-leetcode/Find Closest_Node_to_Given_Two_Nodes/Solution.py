@@ -23,8 +23,7 @@ class Solution:
         for key in one:
             if key not in two:
                 continue
-            elif dist > (d := max(one[key], two[key])) or (dist == d
-                                                           and key < ans):
+            elif dist > (d := max(one[key], two[key])) or (dist == d and key < ans):
                 ans = key
                 dist = d
         return ans if ans < 100001 else -1
