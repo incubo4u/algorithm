@@ -1,25 +1,25 @@
-from ast import List
-from heapq import heappop, heappush
+from collections import deque
+from typing import List
 
 
 class Solution:
 
     def closestMeetingNode(self, edges: List[int], node1: int,node2: int) -> int:
 
-        def djikstra(node):
-            hq = [(0, node)]
+        def bfs(node):
+            que = deque([(0, node)])
             seen = {}
-            while hq:
-                d, n = heappop(hq)
+            while que:
+                d, n = que.popleft()
                 if n in seen:
                     continue
                 seen[n] = d
                 if edges[n] != -1:
-                    heappush(hq, (d + 1, edges[n]))
+                    que.append((d + 1, edges[n]))
             return seen
 
         dist = ans = 100001
-        one, two = djikstra(node1), djikstra(node2)
+        one, two = bfs(node1), bfs(node2)
         for key in one:
             if key not in two:
                 continue
