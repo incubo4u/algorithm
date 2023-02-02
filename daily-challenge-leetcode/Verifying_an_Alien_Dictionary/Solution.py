@@ -1,3 +1,7 @@
+from functools import cmp_to_key
+from typing import List
+
+
 class Solution:
 
     def isAlienSorted(self, words: List[str], order: str) -> bool:
