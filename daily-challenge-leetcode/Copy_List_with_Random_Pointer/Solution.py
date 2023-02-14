@@ -27,7 +27,6 @@ class Solution:
             return new_node
 
         head = tmp
-
         while head:
             new_head = deep_copy(head)
             new_head, head = new_head.next, head.next
