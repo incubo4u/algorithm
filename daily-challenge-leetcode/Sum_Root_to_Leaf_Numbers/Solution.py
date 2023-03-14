@@ -12,26 +12,19 @@ class TreeNode:
 class Solution:
 
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        if not root:
-            return 0
-
-        def traverse(root):
-            if not root.left and not root.right:
-                return [[root.val]]
-            paths = []
-            if root.left:
-                paths += traverse(root.left)
-            if root.right:
-                paths += traverse(root.right)
-            for nodes in paths:
-                nodes.append(root.val)
-            return paths
-
         ans = 0
-        for path in traverse(root):
-            n = 0
-            for i, d in enumerate(path):
-                n += d * (10**i)
-            ans += n
-        return ans
 
+        def traverse(root, curr):
+            if not root:
+                return
+            curr *= 10
+            curr += root.val
+            if not (root.left or root.right):
+                nonlocal ans
+                ans += curr
+
+            traverse(root.left, curr)
+            traverse(root.right, curr)
+
+        traverse(root, 0)
+        return ans
