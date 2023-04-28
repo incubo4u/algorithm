@@ -29,7 +29,7 @@ class Solution:
 
     def numSimilarGroups(self, S: List[str]) -> int:
 
-        def are_similar(s, ss):
+        def similar(s, ss):
             diff = 0
             for _, (c, cc) in enumerate(zip(s, ss)):
                 if c != cc:
@@ -37,14 +37,14 @@ class Solution:
                 if diff > 2:
                     break
             else:
-                return
-            return True
+                return True
+            return 
 
         strs = list(set(S))
         uf = UnionFind(n := len(strs))
         for i, s in enumerate(sorted(strs)):
             for j, ss in enumerate(sorted(strs)):
-                if are_similar(s, ss):
+                if not similar(s, ss):
                     continue
                 uf.union(i, j)
         return len(set(uf.find(i) for i in range(n)))
