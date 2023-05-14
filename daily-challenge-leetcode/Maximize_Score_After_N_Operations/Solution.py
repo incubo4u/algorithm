@@ -6,7 +6,6 @@ from typing import List
 class Solution:
 
     def maxScore(self, nums: List[int]) -> int:
-        n = len(nums) // 2
         cache = defaultdict(int)
 
         def backtrack(times, seen):
