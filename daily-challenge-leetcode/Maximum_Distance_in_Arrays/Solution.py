@@ -3,7 +3,7 @@ from typing import List
 
 
 class Solution:
-
+    #todo remove the hq
     def maxDistance(self, arrays: List[List[int]]) -> int:
         small, big = [], []
         for i, arr in enumerate(arrays):
