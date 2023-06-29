@@ -2,12 +2,11 @@ from heapq import heapify, heappop, heappush
 
 
 class Solution:
-
-    def totalCost(self, costs: List[int], k: int, cand: int) -> int:
+    def totalCost(self, costs: list[int], k: int, cand: int) -> int:
         l, r = cand - 1, len(costs) - cand
         ans = 0
         if (cand + cand) < len(costs):
-            hql = costs[:l + 1]
+            hql = costs[: l + 1]
             hqr = costs[r:]
             heapify(hql)
             heapify(hqr)
