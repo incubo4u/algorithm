@@ -16,9 +16,5 @@ class Solution:
             seen.remove(node)
             return 1
 
-        ans = []
         seen = set()
-        for n in range(len(g)):
-            if tr(n):
-                ans.append(n)
-        return ans
+        return [n for n in range(len(g)) if tr(n)]
