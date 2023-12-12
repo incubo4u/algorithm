@@ -6,5 +6,5 @@ class Solution:
     def minimumTime(self, jobs: list[int], workers: list[int]) -> int:
         days = 0
         for _, (w, j) in enumerate(zip(sorted(workers), sorted(jobs))):
-            days = max(cesl(j / w), days)
+            days = max(ceil(j / w), days)
         return days
