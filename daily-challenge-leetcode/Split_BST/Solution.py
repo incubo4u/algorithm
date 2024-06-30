@@ -1,5 +1,5 @@
-# Runtime Percentile: 59.960200000000015
-# Memory Percentile: 92.62950000000001
+# Runtime Percentile: 40.63750000000002
+# Memory Percentile: 58.56580000000001
 
 
 # Definition for a binary tree node.
@@ -13,14 +13,15 @@ class Solution:
     def splitBST(self, root: Optional[TreeNode],
                  target: int) -> List[Optional[TreeNode]]:
 
-        def find(root):
+        def split(root):
             if not root:
                 return None, None
-            if root.val <= target:
-                root.right, ok = find(root.right)
-                return root, ok
-            else:
-                discard, root.left = find(root.left)
-                return discard, root
 
-        return find(root)
+            if root.val <= target:
+                root.right, main_tree_node = split(root.right)
+                return root, main_tree_node
+
+            other_tree_node, root.left = split(root.left)
+            return other_tree_node, root
+
+        return split(root)
